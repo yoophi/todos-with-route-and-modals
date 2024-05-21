@@ -1,5 +1,5 @@
-import React from 'react';
-import { useConfirmModalState } from '../contexts/ConfirmModalContext';
+import React from "react";
+import { useConfirmModalState } from "../contexts/ConfirmModalContext";
 
 export const Modals = () => {
   const { modals } = useConfirmModalState();

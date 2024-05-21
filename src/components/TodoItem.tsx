@@ -1,28 +1,67 @@
-import React from 'react';
-import { Todo, useTodosDispatch } from '../contexts/TodoContext';
-import { Link, useLocation } from 'react-router-dom';
+import { FaRegCheckCircle, FaRegCircle, FaRegTrashAlt } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
+import { useConfirmModalDispatch } from "../contexts/ConfirmModalContext";
+import { Todo, useTodosDispatch } from "../contexts/TodoContext";
+
 type TodoItemProps = {
-  todo: Todo; // TodoContext 에서 선언했던 타입을 불러왔습니다.
+  todo: Todo;
 };
 
 export const TodoItem = ({ todo }: TodoItemProps) => {
   const dispatch = useTodosDispatch();
+  const { open, close } = useConfirmModalDispatch();
   const location = useLocation();
-  const onRemove = () => {
+  const removeTodo = () => {
     dispatch({
-      type: 'REMOVE',
+      type: "REMOVE",
       id: todo.id,
     });
   };
+  const onCheckboxClick = () => {
+    dispatch({ type: "TOGGLE", id: todo.id });
+  };
 
   return (
-    <li className={`TodoItem ${todo.done ? 'done' : ''}`}>
-      <Link to={`/todos/${todo.id}/edit`} state={{ background: location }}>
-        <span className='text'>{todo.text}</span>
-      </Link>
-      <span className='remove' onClick={onRemove}>
-        (X)
-      </span>
-    </li>
+    <div className="px-4 gap-2 group flex items-center h-16 border-b-[1px] border-stone-300 shrink-0">
+      {todo.completed ? (
+        <button
+          className="flex items-center justify-center w-8"
+          onClick={onCheckboxClick}
+        >
+          <FaRegCheckCircle className="w-6 h-6 text-stone-400 hover:text-stone-600" />
+        </button>
+      ) : (
+        <button
+          className="flex items-center justify-center w-8"
+          onClick={onCheckboxClick}
+        >
+          <FaRegCircle className="w-6 h-6 text-stone-400 hover:text-stone-600" />
+        </button>
+      )}
+      <p
+        className={`flex-1 text-lg ${todo.completed ? "text-stone-400 line-through" : "text-stone-600"}`}
+      >
+        <Link to={`/todos/${todo.id}/edit`} state={{ background: location }}>
+          <span className="text">{todo.content}</span>
+        </Link>
+      </p>
+      <button
+        className="invisible w-8 group-hover:visible"
+        onClick={() => {
+          open({
+            message: `Todo #${todo.id} 을/를 삭제하시겠습니까?`,
+            onConfirm: () => {
+              removeTodo();
+              close();
+            },
+            onCancel: () => {
+              close();
+            },
+          });
+        }}
+      >
+        <FaRegTrashAlt className="w-5 h-5 text-red-500" />
+      </button>
+    </div>
   );
 };
