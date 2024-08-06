@@ -1,13 +1,13 @@
-import React from "react";
-
-export const ConfirmModal = ({
-  message,
-  onConfirm,
-  onCancel,
-}: {
+export type ConfirmModalProps = {
   message: string;
   onConfirm: () => void;
   onCancel: () => void;
+};
+
+export const ConfirmModal: React.FC<ConfirmModalProps> = ({
+  message,
+  onConfirm,
+  onCancel,
 }) => {
   return (
     <div className="absolute inset-0 z-10 flex justify-center w-full h-screen bg-black bg-opacity-75">

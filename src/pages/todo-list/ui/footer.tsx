@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
-import { TabState } from "../App";
-import { Todo, useTodosDispatch } from "../contexts/TodoContext";
-import { useConfirmModalDispatch } from "../contexts/ConfirmModalContext";
+import { TabState, Todo } from "~/entities/todo";
+import { useTodosDispatch } from "~/entities/todo/contexts/todo-context";
+import { useConfirmModalDispatch } from "~/shared/contexts/confirm-modal-context";
 
 type FooterProps = {
   todos: Todo[];

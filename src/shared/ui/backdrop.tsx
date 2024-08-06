@@ -1,14 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import TodoCreateForm from "../components/TodoCreateForm";
 
-export const TodoCreatePage = () => {
-  const navigate = useNavigate();
+type BackdropLayoutProps = {
+  children: React.ReactNode;
+  onClose: () => void;
+};
+
+export const BackdropLayout = ({ children, onClose }: BackdropLayoutProps) => {
   return (
     <div className="absolute inset-0 z-10 flex justify-center w-full h-screen bg-black bg-opacity-75">
       <button
         className="absolute top-0 right-0 inline-block m-4 cursor-pointer"
-        onClick={() => navigate(-1)}
+        onClick={onClose}
       >
         <svg
           className="w-6 h-6 text-white"
@@ -23,9 +25,7 @@ export const TodoCreatePage = () => {
           />
         </svg>
       </button>
-      <div className="pt-24">
-        <TodoCreateForm />
-      </div>
+      <div className="pt-24">{children}</div>
     </div>
   );
 };

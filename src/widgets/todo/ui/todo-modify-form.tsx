@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaCheck } from "react-icons/fa";
-import { useTodosDispatch } from "../contexts/TodoContext";
+import { useTodosDispatch } from "~/entities/todo";
 import { useNavigate } from "react-router-dom";
 
 export const TodoModifyForm = ({

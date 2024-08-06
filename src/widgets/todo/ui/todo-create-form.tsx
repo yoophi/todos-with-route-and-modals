@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useTodosDispatch } from "../contexts/TodoContext";
+import { useTodosDispatch } from "~/entities/todo/contexts/todo-context";
 import { FaCheck } from "react-icons/fa";
 
-function TodoCreateForm() {
+export function TodoCreateForm() {
   const [value, setValue] = useState("");
   const dispatch = useTodosDispatch();
   const ref = useRef<HTMLInputElement>(null);
@@ -45,5 +45,3 @@ function TodoCreateForm() {
     </form>
   );
 }
-
-export default TodoCreateForm;

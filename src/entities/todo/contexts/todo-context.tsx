@@ -1,10 +1,5 @@
 import { createContext, Dispatch, useContext, useReducer } from "react";
-
-export type Todo = {
-  id: number;
-  content: string;
-  completed: boolean;
-};
+import { Todo } from "../model/todo";
 
 type TodosState = Todo[];
 
@@ -21,6 +16,7 @@ type TodosDispatch = Dispatch<Action>;
 const TodosDispatchContext = createContext<TodosDispatch | undefined>(
   undefined,
 );
+
 function todosReducer(state: TodosState, action: Action): TodosState {
   switch (action.type) {
     case "CLEAR_COMPLETED":
@@ -50,6 +46,7 @@ function todosReducer(state: TodosState, action: Action): TodosState {
       throw new Error("Unhandled action");
   }
 }
+
 export function TodosContextProvider({
   children,
 }: {

@@ -1,9 +1,10 @@
-import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { Todo, useTodosState } from "../contexts/TodoContext";
-import { Footer } from "./Footer";
-import { Header } from "./Header";
-import { TodoItem } from "./TodoItem";
 import { useMemo } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { TabState, Todo } from "~/entities/todo";
+import { useTodosState } from "~/entities/todo/contexts/todo-context";
+import { Footer } from "./footer";
+import { Header } from "./header";
+import { TodoItem } from "./todo-item";
 
 export const TodoList = () => {
   const location = useLocation();
@@ -12,7 +13,7 @@ export const TodoList = () => {
   if (!searchParams.get("filter")) {
     searchParams.set("filter", "All");
   }
-  const currentTab = searchParams.get("filter");
+  const currentTab = searchParams.get("filter") ?? "All";
   const filteredTodos = useMemo<Todo[]>(() => {
     if (currentTab === "All") {
       return todos;
@@ -32,7 +33,7 @@ export const TodoList = () => {
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </div>
-      <Footer todos={todos} currentTab={currentTab} />
+      <Footer todos={todos} currentTab={currentTab as TabState} />
     </div>
   );
 };

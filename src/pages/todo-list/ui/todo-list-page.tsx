@@ -1,7 +1,7 @@
 import { FaHome } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { TodoList } from "../components/TodoList";
-import { useConfirmModalDispatch } from "../contexts/ConfirmModalContext";
+import { useConfirmModalDispatch } from "~/shared/contexts/confirm-modal-context";
+import { TodoList } from "./todo-list";
 
 export const TodosPage = () => {
   const { open, close } = useConfirmModalDispatch();

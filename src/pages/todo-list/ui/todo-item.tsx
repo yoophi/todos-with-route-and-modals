@@ -1,7 +1,8 @@
 import { FaRegCheckCircle, FaRegCircle, FaRegTrashAlt } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import { useConfirmModalDispatch } from "../contexts/ConfirmModalContext";
-import { Todo, useTodosDispatch } from "../contexts/TodoContext";
+import { Todo } from "~/entities/todo";
+import { useTodosDispatch } from "~/entities/todo/contexts/todo-context";
+import { useConfirmModalDispatch } from "~/shared/contexts/confirm-modal-context";
 
 type TodoItemProps = {
   todo: Todo;

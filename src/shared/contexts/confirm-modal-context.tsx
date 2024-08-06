@@ -1,9 +1,13 @@
-import { Dispatch, createContext, useContext, useReducer } from "react";
-import { ConfirmModal } from "../components/ConfirmModal";
+import { Dispatch, FC, createContext, useContext, useReducer } from "react";
+import { ConfirmModal, ConfirmModalProps } from "~/shared/ui";
 
 type Modal = {
-  Component: () => JSX.Element;
-  props: Record<string, unknown>;
+  Component: FC<ConfirmModalProps>;
+  props: {
+    message: string;
+    onConfirm: () => void;
+    onCancel: () => void;
+  };
 };
 type ConfirmModalState = {
   modals: Modal[];
@@ -35,7 +39,6 @@ function confirmModalReducer(
 ): ConfirmModalState {
   switch (action.type) {
     case "OPEN":
-      console.log({ action });
       return {
         ...state,
         modals: [
@@ -67,7 +70,7 @@ export function ConfirmModalProvider({
   const [state, dispatch] = useReducer(confirmModalReducer, {
     modals: [],
     props: {},
-  });
+  } as ConfirmModalState);
 
   return (
     <ConfirmModalDispatchContext.Provider value={dispatch}>
@@ -78,7 +81,7 @@ export function ConfirmModalProvider({
   );
 }
 
-export function useConfirmModalState() {
+export function useConfirmModalState(): ConfirmModalState {
   const state = useContext(ConfirmModalStateContext);
   if (!state) {
     throw new Error("ConfirmModalProvider not found");
